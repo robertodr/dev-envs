@@ -16,7 +16,7 @@ in
   };
 
   stdenv.mkDerivation {
-    name = "rust-env";
+    name = "parselglossy";
     buildInputs = [
       pipenv
       python3Packages.ruamel_yaml
