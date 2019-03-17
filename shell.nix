@@ -36,6 +36,7 @@ in
       python3Packages.epc
       python3Packages.importmagic
       python3Packages.isort
+      python3Packages.mypy
       python3Packages.pyls-black
       python3Packages.pyls-isort
       python3Packages.pyls-mypy
