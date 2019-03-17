@@ -11,6 +11,19 @@ in
   with import nixpkgs {
     overlays = [(self: super:
       {
+         python3 = super.python3.override {
+           packageOverrides = py-self: py-super: {
+             python-language-server = py-super.python-language-server.override {
+               providers = [
+                 "rope"
+                 "pyflakes"
+                 "mccabe"
+                 "pycodestyle"
+                 "pydocstyle"
+               ];
+             };
+           };
+         };
       }
     )];
   };
@@ -19,7 +32,14 @@ in
     name = "parselglossy";
     buildInputs = [
       pipenv
-      python3Packages.ruamel_yaml
+      python3Packages.black
+      python3Packages.epc
+      python3Packages.importmagic
+      python3Packages.isort
+      python3Packages.pyls-black
+      python3Packages.pyls-isort
+      python3Packages.pyls-mypy
+      python3Packages.python-language-server
       travis
     ];
 
