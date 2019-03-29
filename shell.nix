@@ -31,8 +31,11 @@ in
   stdenv.mkDerivation {
     name = "parselglossy";
     buildInputs = [
+      cloc
       pipenv
       python3Packages.black
+      python3Packages.epc
+      python3Packages.importmagic
       python3Packages.isort
       python3Packages.mypy
       python3Packages.pyls-black
