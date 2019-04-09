@@ -35,11 +35,11 @@ in
     buildInputs = [
       boost
       bundler
-      clang
       clang-analyzer
       clang-tools
       cmake
       gau2grid
+      gcc
       gdb
       gfortran
       libint
@@ -59,6 +59,7 @@ in
       python3Packages.pyls-mypy
       python3Packages.python-language-server
       python3Packages.sphinx
+      travis
       valgrind
       zlib
     ];
