@@ -3,9 +3,9 @@ let
   nixpkgs = (hostPkgs.fetchFromGitHub {
     owner = "NixOS";
     repo = "nixpkgs-channels";
-    # SHA for latest commit on 2019-03-10 for the nixos-19.03 branch
-    rev = "aea9130d2fe8bbf39ed6c9115de2516f83d7e298";
-    sha256 = "1w1dg9ankgi59r2mh0jilccz5c4gv30a6q1k6kv2sn8vfjazwp9k";
+    # SHA for commit on 2019-04-09 on the nixos-19.03 branch
+    rev = "5c52b25283a6cccca443ffb7a358de6fe14b4a81";
+    sha256 = "0fhbl6bgabhi1sw1lrs64i0hibmmppy1bh256lq8hxy3a2p1haip";
   });
 in
   with import nixpkgs {
@@ -32,9 +32,11 @@ in
     name = "parselglossy";
     buildInputs = [
       cloc
+      gitAndTools.pre-commit
       pipenv
       python3Packages.black
       python3Packages.epc
+      python3Packages.guzzle_sphinx_theme
       python3Packages.importmagic
       python3Packages.isort
       python3Packages.mypy
@@ -42,6 +44,7 @@ in
       python3Packages.pyls-isort
       python3Packages.pyls-mypy
       python3Packages.python-language-server
+      python3Packages.sphinx
       travis
     ];
 
