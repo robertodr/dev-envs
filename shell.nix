@@ -33,28 +33,34 @@ in
     buildInputs = [
       rustup
 
-      gitAndTools.pre-commit
-
       pipenv
+
+      # Python dev-packages
+      gitAndTools.pre-commit
       python3Packages.black
       python3Packages.epc
       python3Packages.guzzle_sphinx_theme
       python3Packages.importmagic
       python3Packages.isort
-      python3Packages.matplotlib
+      python3Packages.jedi
       python3Packages.mypy
-      python3Packages.numpy
-      python3Packages.pandas
-      python3Packages.poetry
       python3Packages.pyls-black
       python3Packages.pyls-isort
       python3Packages.pyls-mypy
+      python3Packages.pytest
       python3Packages.python-language-server
-      python3Packages.scipy
       python3Packages.sphinx
 
-      pkgconfig
+      # Python packages
+      # NOTE some additional packages are installed by hand in .envrc
+      python3Packages.cython  # Needed to get randomgen
+      python3Packages.matplotlib
+      python3Packages.numpy
+      python3Packages.pandas
+
+      lldb
       openssl
+      pkgconfig
       travis
     ];
 

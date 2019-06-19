@@ -1,0 +1,26 @@
+* Notes for a refactor
+
+- In ~_attempt_spawn~ we accumulate data both for successful and unsuccessful diagram generation.
+- In ~_store_new_val~, we check whether to store based on the absolute value of the amplitude.
+  Questions:
+  * Shouldn't this be the responsibility of the store?
+  * Preconditioning. Could probably become responsibility of the store too.
+  * Initiator vs. non-initiator. Logic is hard to follow...
+- The Cluster data structure should be constructible from a list of excitors.
+- Communications hub. Use ~pathlib~ to open, read, remove files.
+- Fix ~TimeParamType~ regex. Charlie found
+  ~r'((?P<days>\d{2})-)?(?P<hours>\d{2,3}):(?P<minutes>\d{2})(:(?P<seconds>\d{2}))?'~
+- Reblocking from zarr while running. We need to check whether file is open to
+  avoid resource contention. If open read data up to point where nonsense
+  starts.
+- zarr storage and calculation restarts in an interactive session.
+
+* Scattered notes
+
+- In the even selection paper the "trick" is to first count number of "combos"
+  and then normalize to some condition. This obtains the discrete probability
+  distributions to sample.
+- We have two types of granularity:
+  a. \(\gamma\): the *evaluation* granularity. Decides magnitude of diagrams to sample.
+  b. \(\Delta\): the *representation* granularity. Decides rounding of values to store.
+- "There are no particles, only fields."
