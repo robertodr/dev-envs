@@ -1,24 +1,20 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [packages]
-
-deepdiff = "*"
 networkx = "*"
 numpy = "*"
 pint = "*"
 pydantic = "*"
-qcelemental = "*"
 qcengine = "*"
-
+msgpack = "*"
+qcelemental = "*"
 
 [dev-packages]
-
 ipython = "*"
 pytest = "*"
 yapf = "*"
 pre-commit = "*"
+jupyterlab = "*"

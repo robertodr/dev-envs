@@ -1,71 +1,83 @@
-let
-  hostPkgs = import <nixpkgs> {};
-  nixpkgs = (hostPkgs.fetchFromGitHub {
-    owner = "NixOS";
-    repo = "nixpkgs-channels";
-    # SHA for latest commit on 2019-03-10 for the nixos-19.03 branch
-    rev = "aea9130d2fe8bbf39ed6c9115de2516f83d7e298";
-    sha256 = "1w1dg9ankgi59r2mh0jilccz5c4gv30a6q1k6kv2sn8vfjazwp9k";
-  });
-in
-  with import nixpkgs {
-    overlays = [
-      (import ~/.config/nixpkgs/overlays/default.nix)
-      (self: super: {
-         python3 = super.python3.override {
-           packageOverrides = py-self: py-super: {
-             python-language-server = py-super.python-language-server.override {
-               providers = [
-                 "rope"
-                 "pyflakes"
-                 "mccabe"
-                 "pycodestyle"
-                 "pydocstyle"
-                 "yapf"
-               ];
-             };
+with import (builtins.fetchGit {
+  name = "nixos-19.03-2019-08-20";
+  url = "https://github.com/NixOS/nixpkgs-channels";
+  ref = "nixos-19.03";
+  # Commit hash for nixos-19.03 as of 2019-08-20
+  # `git ls-remote https://github.com/nixos/nixpkgs-channels nixos-19.03`
+  rev = "5e5a51f7868df98d6db4331bb6cf149040ce474a";
+}) {
+  overlays = [
+    (import ~/.config/nixpkgs/overlays/default.nix)
+    (self: super: {
+       python3 = super.python3.override {
+         packageOverrides = py-self: py-super: {
+           python-language-server = py-super.python-language-server.override {
+             providers = [
+               "rope"
+               "pyflakes"
+               "mccabe"
+               "pycodestyle"
+               "pydocstyle"
+               "yapf"
+             ];
            };
          };
-      })
-    ];
-  };
+       };
+    })
+  ];
+};
 
-  stdenv.mkDerivation {
-    name = "Psi4";
-    buildInputs = [
-      boost
-      bundler
-      clang-analyzer
-      clang-tools
-      cmake
-      gau2grid
-      gcc
-      gdb
-      gfortran
-      libint
-      libxc
-      lldb
-      mkl
-      ninja-kitware
-      pipenv
-      pybind11
-      python3Packages.epc
-      python3Packages.importmagic
-      python3Packages.isort
-      python3Packages.jupyterlab
-      python3Packages.mypy
-      python3Packages.numpy
-      python3Packages.pyls-isort
-      python3Packages.pyls-mypy
-      python3Packages.python-language-server
-      python3Packages.sphinx
-      travis
-      valgrind
-      zlib
-    ];
-    hardeningDisable = [ "all" ];
-    src = null;
-    shellHook = ''
-    SOURCE_DATE_EPOCH=$(date +%s)
-    '';
-  }
+stdenv.mkDerivation {
+  name = "Psi4";
+  nativeBuildInputs = [
+    boost
+    bundler
+    clang
+    clang-analyzer
+    clang-tools
+    cmake
+    gau2grid
+    gdb
+    gfortran
+    libint
+    libxc
+    lldb
+    mkl
+    ninja-kitware
+    pybind11
+    valgrind
+    zlib
+  ];
+  buildInputs = [
+    pipenv
+    python3
+    python3.pkgs.epc
+    python3.pkgs.importmagic
+    python3.pkgs.isort
+    python3.pkgs.jedi
+    python3.pkgs.mypy
+    python3.pkgs.pyls-isort
+    python3.pkgs.pyls-mypy
+    python3.pkgs.python-language-server
+    travis
+  ];
+  hardeningDisable = [ "all" ];
+  src = null;
+  shellHook = ''
+    SOURCE_DATE_EPOCH=$(date +%s) # required for python wheels
+
+    # FIXME This is temporarily needed to avoid problems with Cargo
+    unset SSL_CERT_FILE
+
+    local venv=$(pipenv --bare --venv &>> /dev/null)
+
+    if [[ -z $venv || ! -d $venv ]]; then
+      pipenv install --dev &>> /dev/null
+    fi
+
+    export VIRTUAL_ENV=$(pipenv --venv)
+    export PIPENV_ACTIVE=1
+    export PYTHONPATH="$VIRTUAL_ENV/${python3.sitePackages}:$PYTHONPATH"
+    export PATH="$VIRTUAL_ENV/bin:$PATH"
+  '';
+}

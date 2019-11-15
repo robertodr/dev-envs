@@ -1,0 +1,4 @@
+* Implement ~transmute~ with ~xt::adapt~
+* Implement ~from_dpdfile2~ and ~from_dpdfile4~ with ~xt::adapt~
+* Implement ~operator-~ (negation and subtraction)
+* Implement ~operator*~ (multiply by a scalar)
