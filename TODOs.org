@@ -6,7 +6,7 @@
   * Shouldn't this be the responsibility of the store?
   * Preconditioning. Could probably become responsibility of the store too.
   * Initiator vs. non-initiator. Logic is hard to follow...
-- The Cluster data structure should be constructible from a list of excitors.
+- The ~Cluster~ data structure should be constructible from a list of excitors.
 - Communications hub. Use ~pathlib~ to open, read, remove files.
 - Fix ~TimeParamType~ regex. Charlie found
   ~r'((?P<days>\d{2})-)?(?P<hours>\d{2,3}):(?P<minutes>\d{2})(:(?P<seconds>\d{2}))?'~
@@ -14,6 +14,7 @@
   avoid resource contention. If open read data up to point where nonsense
   starts.
 - zarr storage and calculation restarts in an interactive session.
+- ~ImportanceSamplingStore~ we only need ~combo_store~ from the wavefunction during set up.
 
 * Scattered notes
 
@@ -23,4 +24,4 @@
 - We have two types of granularity:
   a. \(\gamma\): the *evaluation* granularity. Decides magnitude of diagrams to sample.
   b. \(\Delta\): the *representation* granularity. Decides rounding of values to store.
-- "There are no particles, only fields."
+- "There are no particles, only fields." or for us "There are no particles, only granularities."
