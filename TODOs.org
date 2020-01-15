@@ -6,6 +6,7 @@
   * Shouldn't this be the responsibility of the store?
   * Preconditioning. Could probably become responsibility of the store too.
   * Initiator vs. non-initiator. Logic is hard to follow...
+  * Why would we _not always_ want to store spawn statistics? Now we pass the diagram around, though it is actually only needed in ~_attempt_spawn~.
 - The ~Cluster~ data structure should be constructible from a list of excitors.
 - Communications hub. Use ~pathlib~ to open, read, remove files.
 - Fix ~TimeParamType~ regex. Charlie found
@@ -25,3 +26,9 @@
   a. \(\gamma\): the *evaluation* granularity. Decides magnitude of diagrams to sample.
   b. \(\Delta\): the *representation* granularity. Decides rounding of values to store.
 - "There are no particles, only fields." or for us "There are no particles, only granularities."
+* TODO Debugging notes
+  - [ ] The trial loop in MCCrust differs from diagCCMC: we look for all
+    excitations allowed in the selected truncation level, but really we should
+    only look at the ones allowed in the MP1 initialisation (doubles only)
+  - [ ] In diagCCMC we always print 0 as number of informative diagrams resulting
+    from the trial loop.
