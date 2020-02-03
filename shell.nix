@@ -1,30 +1,33 @@
-with import (builtins.fetchGit {
-  name = "nixpkgs-unstable-2020-01-11";
-  url = "https://github.com/NixOS/nixpkgs-channels";
-  ref = "nixpkgs-unstable";
-  # Commit hash for nixpkgs-unstable as of 2020-01-11
-  # `git ls-remote https://github.com/nixos/nixpkgs-channels nixpkgs-unstable`
-  rev = "7e8454fb856573967a70f61116e15f879f2e3f6a";
-}) {
-  overlays = [(self: super: {})];
-};
-
 let
+  outer = import <nixpkgs> {};
+in
+  {
+    pkgs ? import (outer.fetchFromGitHub {
+      # Obtained on 2020-01-20 with `nix-prefetch-github nixos nixpkgs-channels --nix --rev nixpkgs-unstable`
+      owner = "nixos";
+      repo = "nixpkgs-channels";
+      rev = "8da81465c19fca393a3b17004c743e4d82a98e4f";
+      sha256 = "1f3s27nrssfk413pszjhbs70wpap43bbjx2pf4zq5x2c1kd72l6y";
+    }) {
+      overlays = [(self: super: {})];
+    }
+  }:
+
+with pkgs;
+let
+  # Obtained on 2020-01-21 with `nix-prefetch-github nix-community poetry2nix --nix`
   srcPoetry = fetchFromGitHub {
     owner = "nix-community";
     repo = "poetry2nix";
-    # Commit hash for master as of 2020-01-12
-    # `git ls-remote https://github.com/nix-community/poetry2nix.git master`
-    rev = "2751a7fa0dd675b95e43a14699c2891143c247ec";
-    sha256 = "0s8ywnfdr3w8l3dximqmcd01nw8frxfjw796130px5d8vp3i7ygf";
+    rev = "f1af96e2c5f4abcd1bbebbc370390edc0acfd84f";
+    sha256 = "0phvbj7dg8pf82qa2519hy8lh0wpjhi5c7d46iv22pwhhhiiynkn";
   };
+  # Obtained on 2020-01-16 with `nix-prefetch-github mozilla nixpkgs-mozilla --nix`
   srcRust = fetchFromGitHub {
     owner = "mozilla";
     repo = "nixpkgs-mozilla";
-    # Commit hash for master as of 2019-10-10
-    # `git ls-remote https://github.com/mozilla/nixpkgs-mozilla master`
-    rev = "d46240e8755d91bc36c0c38621af72bf5c489e13";
-    sha256 = "0icws1cbdscic8s8lx292chvh3fkkbjp571j89lmmha7vl2n71jg";
+    rev = "5300241b41243cb8962fad284f0004afad187dad";
+    sha256 = "1h3g3817anicwa9705npssvkwhi876zijyyvv4c86qiklrkn5j9w";
   };
 in
   with import "${srcPoetry.out}/overlay.nix" pkgs pkgs;
@@ -88,9 +91,15 @@ in
     # Set Environment Variables
     RUST_BACKTRACE = 1;
     RUST_LIB_BACKTRACE = 1;
-    VIRTUAL_ENV = "${pythonEnv.out}";
-    #shellHook = ''
-    #  # FIXME This is temporarily needed to avoid problems with Cargo
-    #  unset SSL_CERT_FILE
-    #'';
+    SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
+    shellHook = ''
+      local venv=$(poetry env info -p)
+
+      if [[ -z $venv || ! -d $venv ]]; then
+        poetry env use ${pythonEnv.out}/bin/python &>> /dev/null
+        venv=$(poetry env info -p)
+      fi
+
+      export VIRTUAL_ENV="$venv"
+    '';
 }

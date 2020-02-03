@@ -26,9 +26,20 @@
   a. \(\gamma\): the *evaluation* granularity. Decides magnitude of diagrams to sample.
   b. \(\Delta\): the *representation* granularity. Decides rounding of values to store.
 - "There are no particles, only fields." or for us "There are no particles, only granularities."
+
+* Random number generation
+
+- In Rust: https://rust-random.github.io/book/guide-rngs.html
+- ~WeightedIndex~ in the ~rand~ crate implements the alias method: https://rust-random.github.io/rand/rand/distributions/weighted/alias_method/struct.WeightedIndex.html
+- The Python ~randomgen~ package is the next generation collection of RNGs for NumPy: https://bashtage.github.io/randomgen/index.html
+- The xoshiro/xoroshiro RNGs seem to be the most efficient: http://prng.di.unimi.it/ The website has notes on how to generate good seeds.
+
+* Optimization
+
+- Radovan ran cProfile on the code and found the following: https://gist.github.com/bast/cda2650bf47bba9ba049ae3b6d33fe57
+- The profile was obtained with the procedure documented here: https://github.com/bast/cprofile-howto
+
 * TODO Debugging notes
   - [ ] The trial loop in MCCrust differs from diagCCMC: we look for all
     excitations allowed in the selected truncation level, but really we should
     only look at the ones allowed in the MP1 initialisation (doubles only)
-  - [ ] In diagCCMC we always print 0 as number of informative diagrams resulting
-    from the trial loop.

@@ -373,6 +373,10 @@ version = "0.6.4"
 [package.dependencies]
 numpy = ">=1.7"
 
+[package.dependencies.msgpack]
+optional = true
+version = "*"
+
 [package.extras]
 msgpack = ["msgpack"]
 
@@ -483,7 +487,7 @@ description = "pytest: simple powerful testing with Python"
 name = "pytest"
 optional = false
 python-versions = ">=3.5"
-version = "5.3.2"
+version = "5.3.4"
 
 [package.dependencies]
 atomicwrites = ">=1.0"
@@ -500,6 +504,7 @@ python = "<3.8"
 version = ">=0.12"
 
 [package.extras]
+checkqa-mypy = ["mypy (v0.761)"]
 testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "requests", "xmlschema"]
 
 [[package]]
@@ -630,15 +635,26 @@ description = "Scalene: A high-resolution, low-overhead CPU and memory profiler 
 name = "scalene"
 optional = false
 python-versions = "*"
-version = "0.6.1"
+version = "0.6.3"
+
+[[package]]
+category = "dev"
+description = "the blessed package to manage your versions by scm tags"
+name = "setuptools-scm"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+version = "3.4.2"
+
+[package.extras]
+toml = ["toml"]
 
 [[package]]
 category = "main"
 description = "Python 2 and 3 compatibility utilities"
 name = "six"
 optional = false
-python-versions = ">=2.6, !=3.0.*, !=3.1.*"
-version = "1.13.0"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
+version = "1.14.0"
 
 [[package]]
 category = "dev"
@@ -677,8 +693,8 @@ category = "dev"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
 name = "urllib3"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, <4"
-version = "1.25.7"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
+version = "1.25.8"
 
 [package.extras]
 brotli = ["brotlipy (>=0.6.0)"]
@@ -735,8 +751,8 @@ description = "Backport of pathlib-compatible object wrapper for zip files"
 marker = "python_version < \"3.8\""
 name = "zipp"
 optional = false
-python-versions = ">=2.7"
-version = "1.0.0"
+python-versions = ">=3.6"
+version = "2.0.0"
 
 [package.dependencies]
 more-itertools = "*"
@@ -746,7 +762,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["pathlib2", "contextlib2", "unittest2"]
 
 [metadata]
-content-hash = "d3c6d14eb1d0189914b02f1f18a1930794181a2d9c099316e16b891ba464707a"
+content-hash = "9a53f07152ad35c62b1033bf985b672589facb322da73d9101a5b152b8d22688"
 python-versions = "^3.7"
 
 [metadata.files]
@@ -1099,8 +1115,8 @@ pyparsing = [
     {file = "pyparsing-2.4.6.tar.gz", hash = "sha256:4c830582a84fb022400b85429791bc551f1f4871c33f23e44f353119e92f969f"},
 ]
 pytest = [
-    {file = "pytest-5.3.2-py3-none-any.whl", hash = "sha256:e41d489ff43948babd0fad7ad5e49b8735d5d55e26628a58673c39ff61d95de4"},
-    {file = "pytest-5.3.2.tar.gz", hash = "sha256:6b571215b5a790f9b41f19f3531c53a45cf6bb8ef2988bc1ff9afb38270b25fa"},
+    {file = "pytest-5.3.4-py3-none-any.whl", hash = "sha256:c13d1943c63e599b98cf118fcb9703e4d7bde7caa9a432567bcdcae4bf512d20"},
+    {file = "pytest-5.3.4.tar.gz", hash = "sha256:1d122e8be54d1a709e56f82e2d85dcba3018313d64647f38a91aec88c239b600"},
 ]
 pytest-datadir = [
     {file = "pytest-datadir-1.3.1.tar.gz", hash = "sha256:d3af1e738df87515ee509d6135780f25a15959766d9c2b2dbe02bf4fb979cb18"},
@@ -1181,12 +1197,22 @@ requests = [
     {file = "requests-2.22.0.tar.gz", hash = "sha256:11e007a8a2aa0323f5a921e9e6a2d7e4e67d9877e85773fba9ba6419025cbeb4"},
 ]
 scalene = [
-    {file = "scalene-0.6.1-py3-none-any.whl", hash = "sha256:094cff1a87273f4f32f625160df50d49ed03d9c14154dfd482e12a352d768166"},
-    {file = "scalene-0.6.1.tar.gz", hash = "sha256:4ca3e5a5e3c830577bb31bd43ec39bdd1f208ba26036fd79dcf01b7874fe840c"},
+    {file = "scalene-0.6.3-py3-none-any.whl", hash = "sha256:046e58b058c51adf5dd458045d97cdff73e2c70fe1b4b62ec38e143bba9b81e3"},
+    {file = "scalene-0.6.3.tar.gz", hash = "sha256:4aae27d41484f6463d8e4bb3dbc8f317911e9a9deb89e7bd5045dc69d5d1d760"},
+]
+setuptools-scm = [
+    {file = "setuptools_scm-3.4.2-py2.7.egg", hash = "sha256:15cc0fd17e101bd75dba8cc1d46fdedee0d75e7b73469bcdcea8c755107d76b1"},
+    {file = "setuptools_scm-3.4.2-py2.py3-none-any.whl", hash = "sha256:f1036befb98fdb974218095ea6c478367a7a3f812597a525d4576b10659c5980"},
+    {file = "setuptools_scm-3.4.2-py3.4.egg", hash = "sha256:55fb0e4002780591fa8c091fe14a9bacb6517826299a10370ce857c0d66cac16"},
+    {file = "setuptools_scm-3.4.2-py3.5.egg", hash = "sha256:2a961c659a29befd8b4f5f3ae48a063e9089480791f6b6e74bb57a42e7ce1e09"},
+    {file = "setuptools_scm-3.4.2-py3.6.egg", hash = "sha256:09bbfbb2030f17f3a5f8fa0413e92f356022ac2743ce74ccba6f01a936117433"},
+    {file = "setuptools_scm-3.4.2-py3.7.egg", hash = "sha256:04a3cd107f822627148b36e111dd42a7bcd3e8f28a1afa4fcfdea45430c1f15e"},
+    {file = "setuptools_scm-3.4.2-py3.8.egg", hash = "sha256:70464fbdb86da58973adc46bd326014cc56a24ed8241d167ba2213756ab34597"},
+    {file = "setuptools_scm-3.4.2.tar.gz", hash = "sha256:88c14b4912dae5c9d1a79900aa4f51f25fba5b318538edbb61c867ab5d5b6da5"},
 ]
 six = [
-    {file = "six-1.13.0-py2.py3-none-any.whl", hash = "sha256:1f1b7d42e254082a9db6279deae68afb421ceba6158efa6131de7b3003ee93fd"},
-    {file = "six-1.13.0.tar.gz", hash = "sha256:30f610279e8b2578cab6db20741130331735c781b56053c59c4076da27f06b66"},
+    {file = "six-1.14.0-py2.py3-none-any.whl", hash = "sha256:8f3cd2e254d8f793e7f3d6d9df77b92252b52637291d0f0da013c76ea2724b6c"},
+    {file = "six-1.14.0.tar.gz", hash = "sha256:236bdbdce46e6e6a3d61a337c0f8b763ca1e8717c03b369e87a7ec7ce1319c0a"},
 ]
 termcolor = [
     {file = "termcolor-1.1.0.tar.gz", hash = "sha256:1d6d69ce66211143803fbc56652b41d73b4a400a2891d7bf7a1cdf4c02de613b"},
@@ -1225,8 +1251,8 @@ typing-extensions = [
     {file = "typing_extensions-3.7.4.1.tar.gz", hash = "sha256:091ecc894d5e908ac75209f10d5b4f118fbdb2eb1ede6a63544054bb1edb41f2"},
 ]
 urllib3 = [
-    {file = "urllib3-1.25.7-py2.py3-none-any.whl", hash = "sha256:a8a318824cc77d1fd4b2bec2ded92646630d7fe8619497b142c84a9e6f5a7293"},
-    {file = "urllib3-1.25.7.tar.gz", hash = "sha256:f3c5fd51747d450d4dcf6f923c81f78f811aab8205fda64b0aba34a4e48b0745"},
+    {file = "urllib3-1.25.8-py2.py3-none-any.whl", hash = "sha256:2f3db8b19923a873b3e5256dc9c2dedfa883e33d87c690d9c7913e1f40673cdc"},
+    {file = "urllib3-1.25.8.tar.gz", hash = "sha256:87716c2d2a7121198ebcb7ce7cccf6ce5e9ba539041cfbaeecfb641dc0bf6acc"},
 ]
 vose-alias-method = [
     {file = "Vose-Alias-Method-1.1.1.tar.gz", hash = "sha256:aad5889d11852b0dd4cac75c6de9a431770a1822cdea87ec638d47357a3173a3"},
@@ -1244,6 +1270,6 @@ zarr = [
     {file = "zarr-2.4.0.tar.gz", hash = "sha256:53aa21b989a47ddc5e916eaff6115b824c0864444b1c6f3aaf4f6cf9a51ed608"},
 ]
 zipp = [
-    {file = "zipp-1.0.0-py2.py3-none-any.whl", hash = "sha256:8dda78f06bd1674bd8720df8a50bb47b6e1233c503a4eed8e7810686bde37656"},
-    {file = "zipp-1.0.0.tar.gz", hash = "sha256:d38fbe01bbf7a3593a32bc35a9c4453c32bc42b98c377f9bff7e9f8da157786c"},
+    {file = "zipp-2.0.0-py3-none-any.whl", hash = "sha256:57147f6b0403b59f33fd357f169f860e031303415aeb7d04ede4839d23905ab8"},
+    {file = "zipp-2.0.0.tar.gz", hash = "sha256:7ae5ccaca427bafa9760ac3cd8f8c244bfc259794b5b6bb9db4dda2241575d09"},
 ]
