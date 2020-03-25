@@ -1,0 +1,6 @@
+
+* TODO 
+
+- Introduce an ~Indexing~ trait that implements ~new~, ~len~, and so on. Then implement it for each ~Index~ type.
+- ~Index~ has ~lower~ and ~upper~ portions, but also ~holes~ and ~particles~
+  
