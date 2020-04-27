@@ -1,6 +1,14 @@
-
 * TODO 
 
-- Introduce an ~Indexing~ trait that implements ~new~, ~len~, and so on. Then implement it for each ~Index~ type.
-- ~Index~ has ~lower~ and ~upper~ portions, but also ~holes~ and ~particles~
-  
+- A ~Store~ is essentially a ~HashMap<Index, T: Num>~ with additional useful properties.
+We can have a store for symmetric or antisymmetric quantities and further combine with rounding (stochastic or otherwise).
+The additional useful properties manifest in the way we insert and retrieve data from the ~Store~.
+In both cases, we need to reorder the ~Index~ to a specified order
+  - Inserting: if the ~Index~ is present, we update the corresponding value, otherwise we generate a new key-value pair.
+    The insertion might be combined with rounding.
+  - Retrieving: if the ~Index~ is present, we might need to adjust its *sign* according to the reordering of the key (antisymmetry).
+
+Schematically:
+  - _Pre-process_ Reorder ~Index~ to condition.
+  - _Process_ Access underlying ~HashMap<Index, T: Num>~.
+  - _Post-process_ Apply transformation to value. 

@@ -9,26 +9,21 @@ in
 pkgs.mkShell {
   name = "mclust-rs";
   nativeBuildInputs = [
-    pkgs.poetry
     pythonEnv
     rustEnv
-
-    # Build-time Additional Dependencies
-    #arrayfire  # GPU library, ultra-heavy to compile
-    #pkgconfig
   ];
 
   # Run-time Additional Dependencies
-  buildInputs = [
+  buildInputs = with pkgs; [
     # Development tools
-    pkgs.gitAndTools.pre-commit
-    pkgs.lldb
+    cargo-expand
+    gitAndTools.pre-commit
+    lldb
     pythonEnv.pkgs.ipython
-    pythonEnv.pkgs.jupyterlab
+    rust-analyzer
   ];
 
   # Set Environment Variables
   RUST_BACKTRACE = 1;
-  RUST_LIB_BACKTRACE = 1;
   SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
 }
