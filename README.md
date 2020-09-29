@@ -19,3 +19,10 @@ niv init
 ```bash
 git fetch along +nix-<project_name>:along
 ```
+5. Retrieve the stash branch
+```bash
+git along retrieve
+```
+6. Re-run `niv init`
+
+## How to push your changes to this repo
