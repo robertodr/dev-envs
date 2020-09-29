@@ -1,0 +1,14 @@
+* Context object
+  
+- Creating the context initializes everything, /but/ the options (~mol~ and ~dal~ files) 
+  ~ctx = lspy.create()~
+- Options are passed as:
+  ~ctx.set_options({"dalfile": Path("calculation.dal"), "molecule": Path("molecule.mol"})~
+  Some convenience functions:
+  + ~ctx_is_set = ctx.options_are_set()~
+  + ~options = ctx.get_options()~
+- The calculation is run as:
+  ~success, log = ctx.run()~
+  where ~log~ is a string with the calculation output (what was written to the output file)
+- Of course, one could combine the two things:
+  ~success, log = ctx.run({"dalfile": Path("calculation.dal"), "molecule": Path("molecule.mol"})~
