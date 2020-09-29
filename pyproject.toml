@@ -1,0 +1,26 @@
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+
+[tool.poetry]
+name = "LSDALTON"
+version = "0.0.0"
+description = "CI for LSDALTON"
+authors = ["Roberto Di Remigio <roberto.diremigio@gmail.com>"]
+
+[tool.poetry.dependencies]
+cffi = "^1.14" 
+numpy = "^1.17"
+python = "^3.7"
+scipy = "^1.4"
+docopt = "^0.6"
+#matplotlib = "^3.2"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.3"
+pytest-datafiles = "^2.0"
+pytest-datadir = "^1.3"
+runtest = "^2.2"
+
+#atomicwrites = "^1.0"
+setuptools-scm = { version = "^3.4", extras = ["toml"] }
