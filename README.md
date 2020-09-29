@@ -11,7 +11,11 @@ git remote add along git@github.com:robertodr/dev-envs.git
 ```bash
 git along new-stash
 ```
-3. Merge the remote branch without checkout
+3. If using [Niv](https://github.com/nmattia/niv), you have to initialize the folder. `git-along` doesn't seem to play well with folders :shrug:
+```bash
+niv init
+```
+4. Merge the remote branch without checkout
 ```bash
 git fetch along +nix-<project_name>:along
 ```
