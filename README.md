@@ -1,6 +1,25 @@
 # dev-envs
 Collections of Nix shell and direnv files. Used with [`git-along`](https://github.com/nyarly/git-along).
 
+## How to create a new development environment
+
+1. Create new stash branch
+```bash
+git along new-stash
+```
+2. Add files to stash branch
+```bash
+git along add shell.nix .envrc
+```
+3. Add this repo as an additional remote
+```bash
+git remote add along git@github.com:robertodr/dev-envs.git
+```
+4. Push your stash branch
+```bash
+git push -u along along:nix-veloxchem
+```
+
 ## How to bootstrap the development environment for a new clone
 
 1. Add this repo as an additional remote
