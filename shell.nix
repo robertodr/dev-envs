@@ -1,6 +1,9 @@
 let
   sources = import ./nix/sources.nix;
   pkgs = import sources.nixpkgs {
+    config = {
+      allowUnfree = true;
+    };
     overlays = [
       (self: super: {
         blas = super.blas.override {
@@ -10,28 +13,36 @@ let
           lapackProvider = self.mkl;
         };
       })
-      (import (sources.poetry2nix + "/overlay.nix"))
     ];
   };
-  pythonEnv = import ./nix/pythonEnv.nix { inherit pkgs; };
+  mach-nix = import sources.mach-nix {
+    pkgs = pkgs;
+    python = "python38";
+  };
+  pythonEnv = mach-nix.mkPython rec {
+    requirements = builtins.readFile ./requirements.txt;
+  };
 in
 pkgs.mkShell {
   name = "VeloxChem";
   nativeBuildInputs = with pkgs; [
     clang-analyzer
     clang-tools
+    clang_11
     cmake
     gcc
     gtest
+    llvmPackages_11.openmp
     mkl
     ninja
     openmpi
-    #pybind11
     pythonEnv
-    #zlib
+    pythonEnv.pkgs.isort
+    pythonEnv.pkgs.jupyterlab
+    pythonEnv.pkgs.requests
   ];
   buildInputs = with pkgs; [
-    gdb
+    lldb
     valgrind
   ];
   hardeningDisable = [ "all" ];
