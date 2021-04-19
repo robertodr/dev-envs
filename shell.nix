@@ -39,7 +39,9 @@ pkgs.mkShell {
     pythonEnv
     pythonEnv.pkgs.isort
     pythonEnv.pkgs.jupyterlab
+    pythonEnv.pkgs.pytest
     pythonEnv.pkgs.requests
+    pythonEnv.pkgs.yapf
   ];
   buildInputs = with pkgs; [
     lldb
@@ -47,4 +49,5 @@ pkgs.mkShell {
   ];
   hardeningDisable = [ "all" ];
   NINJA_STATUS = "[Built edge %f of %t in %e sec] ";
+  KMP_DUPLICATE_LIB_OK = "TRUE";
 }
