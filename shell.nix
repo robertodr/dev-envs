@@ -50,4 +50,5 @@ pkgs.mkShell {
   hardeningDisable = [ "all" ];
   NINJA_STATUS = "[Built edge %f of %t in %e sec] ";
   KMP_DUPLICATE_LIB_OK = "TRUE";
+  MKLROOT = "${pkgs.mkl.outPath}";
 }
